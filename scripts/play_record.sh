@@ -16,3 +16,4 @@ fi
 
 # echo "$2/follow_joint_trajectory/.*|/joint_states"
 rosbag record --duration=15 -O $dname -e "$2/follow_joint_trajectory/.*|/joint_states"
+

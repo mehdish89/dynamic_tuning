@@ -69,6 +69,7 @@ def gen_traj(joint_limits = np.array([[-math.pi, math.pi]] * 6),
 
         # print (iters % action_step)
 
+
         if iters % action_step == 0:
             acc = np.random.rand(6) - 0.5
             acc = acc / np.linalg.norm(acc)
