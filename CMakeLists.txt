@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   ur_bringup
   ur_driver
   ur_gazebo
+  dynamic_reconfigure
 )
 
 ## System dependencies are found with CMake's conventions
