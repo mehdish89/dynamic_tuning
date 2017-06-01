@@ -225,6 +225,9 @@ def main(args):
 
 	# find_error(bag_a, start_a, end_a, bag_b, start_b, end_b)
 
+	mng = plt.get_current_fig_manager()
+	mng.full_screen_toggle()
+
 	plt.show()
 	# print(id)
 	# print(start)

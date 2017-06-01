@@ -1,0 +1,20 @@
+optimizable_params:
+    - /arm_controller/gains/shoulder_lift_joint/d
+    - /arm_controller/gains/shoulder_lift_joint/i
+    - /arm_controller/gains/shoulder_lift_joint/p
+    
+    - /arm_controller/gains/shoulder_pan_joint/d
+    - /arm_controller/gains/shoulder_pan_joint/i
+    - /arm_controller/gains/shoulder_pan_joint/p
+    
+    - /arm_controller/gains/wrist_1_joint/d
+    - /arm_controller/gains/wrist_1_joint/i
+    - /arm_controller/gains/wrist_1_joint/p
+    
+    - /arm_controller/gains/wrist_2_joint/d
+    - /arm_controller/gains/wrist_2_joint/i
+    - /arm_controller/gains/wrist_2_joint/p
+    
+    - /arm_controller/gains/wrist_3_joint/d
+    - /arm_controller/gains/wrist_3_joint/i
+    - /arm_controller/gains/wrist_3_joint/p

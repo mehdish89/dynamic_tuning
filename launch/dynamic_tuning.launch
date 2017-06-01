@@ -1,0 +1,4 @@
+<launch>
+  <node name="gazebo_params" pkg="dyn_tune" type="set_params.py" />
+  <rosparam command="load" file="$(find dyn_tune)/config/params.yaml" />
+</launch>
