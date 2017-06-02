@@ -26,6 +26,7 @@ def set_param(service_name, value):
     except rospy.ServiceException, e:
         print "Service call failed: %s"%e
 
+        services = ["test_service"]
 def set_params(value):
 	services = get_services()
 	for service_name in services:
@@ -51,7 +52,9 @@ if __name__ == '__main__':
     # Create a D(ynamic)DynamicReconfigure
     ddynrec = DDynamicReconfigure("")
 
-    services = get_services()
+    # services = get_services()
+
+    services = ["test_service"]
 
     for service_name in services:
 		print(service_name)

@@ -105,10 +105,12 @@ class dynamic_tuner:
 
 			nparams[node_name].update({param_name:value})
 
-		print nparams			
+		print nparams
 
-		# for node, config in nparams.items():
-			
+		for node, config in nparams.items():
+			rospy.wait_for_service(node)
+    		client = dynamic_reconfigure.client.Client(node, timeout=30)#, config_callback=callback)
+    		client.update_configuration(config)
 
 		pass
 

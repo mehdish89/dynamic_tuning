@@ -1,3 +1,5 @@
+# CMA-ES implementation here as a subclass of optimizer
+
 class optimizer:
 
 	def set_params(config):
