@@ -2,6 +2,8 @@ from optimizer import optimizer
 # import compare
 import numpy as np
 from collections import defaultdict
+import rospy
+import dynamic_reconfigure.client
 
 class objective(dict):
 
@@ -66,6 +68,8 @@ class dynamic_tuner:
 
 	_objective = objective()
 
+	rospy.init_node('dyn_tuner')
+
 
 	def __init__(self, param_list, value_list, simulate, ground_truth, path = ''):
 		# set the default objective function using given value_list
@@ -108,7 +112,13 @@ class dynamic_tuner:
 		print nparams
 
 		for node, config in nparams.items():
-			rospy.wait_for_service(node)
+			print(node, config)
+
+			service_name = node + "/set_parameters"
+
+			print(service_name)
+
+			# rospy.wait_for_service(service_name)
     		client = dynamic_reconfigure.client.Client(node, timeout=30)#, config_callback=callback)
     		client.update_configuration(config)
 
