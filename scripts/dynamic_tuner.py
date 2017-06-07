@@ -323,8 +323,8 @@ def start_simulation(real_bag_file, sim_bag_file, src_topic, dst_topic, start_si
 
 	sim_bag = rosbag.Bag(sim_bag_file, 'r')
 
-	sim_bag = restamp(sim_bag, output_bag_file = 'sim-restamped.bag', prefix = "simulation", start_signal = start_signal, end_signal = end_signal)
-	real_bag = restamp(real_bag, output_bag_file = 'real-restamped.bag', prefix = "real", start_signal = start_signal, end_signal = end_signal)
+	sim_bag = restamp(sim_bag, output_bag_file = 'sim-restamped.bag', prefix = SIM_PREFIX, start_signal = start_signal, end_signal = end_signal)
+	real_bag = restamp(real_bag, output_bag_file = 'real-restamped.bag', prefix = REAL_PREFIX, start_signal = start_signal, end_signal = end_signal)
 
 	combined_bag = combine(sim_bag, real_bag)
 
