@@ -11,8 +11,16 @@ from numbers import Number
 
 from std_msgs.msg import String
 
+
 import subprocess
+import threading
+
 import re
+import yaml
+
+
+SIM_PREFIX = "/simulation"
+REAL_PREFIX = "/real"
 
 
 class objective(dict):
@@ -95,8 +103,8 @@ def value_of(topic, msg, value):
 
 	return res	
 
-def combine(bag_a, bag_b):
-	bag_c = rosbag.Bag('combined.bag', 'w')
+def combine(bag_a, bag_b, output_bag_file = 'combined.bag'):
+	bag_c = rosbag.Bag(output_bag_file, 'w')
 	
 	for topic, msg, t in bag_a.read_messages():
 		bag_c.write(topic, msg, t)
@@ -106,42 +114,64 @@ def combine(bag_a, bag_b):
 
 	bag_c.close()
 
+	bag_c = rosbag.Bag(output_bag_file, 'r')
+
 	return bag_c
 
 
-def restamp(bag, start_signal = {}, end_signal = {}):
+def restamp(bag, output_bag_file = 'restamped.bag', prefix = "", start_signal = {}, end_signal = {}):
 
-	output = rosbag.Bag('restamped.bag', 'w')
+	state = -1
+	if not start_signal:
+		state = 0
 
-	state = -1 + 1
+
+	output = rosbag.Bag(output_bag_file, 'w')
+
+	
 	zero = rospy.Duration(0.)
+
+
+	def check_signal(topic, msg, signal):
+
+		for key, val in signal.items():
+			new_val = value_of(topic, msg, key)
+			if (val!=None and val == new_val) or (val == None and new_val != None):
+				print("happened with", topic, msg, signal)
+				return True
+		print("didnt happen with", topic, msg, signal)
+		return False
+
 
 	try:
 		for topic, msg, t in bag.read_messages():
+			print(zero)
+			if(zero == rospy.Duration(0.)):
+				zero = t - rospy.Duration(0.000000001)
 			if state == -1:
-				for key, val in start_signal.items():
-					if(val == value_of(topic, msg, key)):
-						zero = t
-						state = 0
-						break
-						pass # START TO RESTAMP
+				if check_signal(topic, msg, start_signal):
+					zero = t - rospy.Duration(0.000000001)
+					state = 0
+					pass # START TO RESTAMP
 
 			if state == 0:
 
 				### RESTAMPING
-				print(topic, msg, t)
-				output.write(topic, msg, t-zero)
+				print("#####", topic, msg, (t-zero).to_sec())
+				new_topic = "".join([prefix, topic])
+				# output.write(new_topic, msg, t-zero)
+				output.write(new_topic, msg, t-zero)
 
+				if check_signal(topic, msg, end_signal):
+					state = 1
+					pass # STOP RESTAMP
 
-				for key, val in end_signal.items():
-					if(val == value_of(topic, msg, key)):
-						state = 1
-						break
-						pass # STOP RESTAMP
 			if state == 1:
 				break
 	finally:
 		output.close()
+
+	output = rosbag.Bag(output_bag_file, 'r')
 
 	return output
 
@@ -235,13 +265,71 @@ def resample(bag, value_list, resolution = 0.1):
 	return datamap
 
 
+
+
 def play_bag(bag_file, src, dst):
 	# play the messages from the topic <src> of the bag on the topic <dst>	
-
-	cmd = "rosbag play --topics {0} --bags={1} {2}:={3}".format(src, bag_file, src, dst)
+	cmd = "rosbag play -d 2 --topics {0} --bags={1} {2}:={3}".format(src, bag_file, src, dst)
 	subprocess.check_call(cmd, shell=True)
-
 	pass
+
+def record_bag(output_bag, topics = [], duration = 10):
+	topics = " ".join(topics)
+	if topics == "":
+		topics = "--all"
+
+	subprocess.check_call(["rosbag", "record", topics,
+							"--duration={0}".format(duration),
+							"--output-name={0}".format(output_bag),
+							])
+	pass
+
+
+def get_bag_info(bag):
+	if isinstance(bag, str):
+		bag = rosbag.Bag(bag, 'r')
+	return yaml.load(bag._get_yaml_info())
+
+def start_simulation(real_bag_file, sim_bag_file, src_topic, dst_topic, start_signal={}, end_signal={}):
+	real_bag = rosbag.Bag(real_bag_file, 'r')
+	info = get_bag_info(real_bag)
+	
+	# TODO: do it in thread
+	def recorder():
+		print("recording bag")
+		record_bag(sim_bag_file, duration = info["duration"])
+		print("finished recording")
+
+	recording = threading.Thread(target=recorder)
+
+	# TODO: do it in thread
+	def player():
+		print("playing bag")
+		play_bag(real_bag_file, src_topic, dst_topic)
+		print("finished playing")
+
+	playing = threading.Thread(target=player)
+
+
+	recording.start()
+	rospy.sleep(1)
+	playing.start()
+
+	recording.join()
+	playing.join()
+
+	print("finished simulation")
+
+
+	sim_bag = rosbag.Bag(sim_bag_file, 'r')
+
+	sim_bag = restamp(sim_bag, output_bag_file = 'sim-restamped.bag', prefix = "simulation", start_signal = start_signal, end_signal = end_signal)
+	real_bag = restamp(real_bag, output_bag_file = 'real-restamped.bag', prefix = "real", start_signal = start_signal, end_signal = end_signal)
+
+	combined_bag = combine(sim_bag, real_bag)
+
+	return combined_bag
+
 
 
 
