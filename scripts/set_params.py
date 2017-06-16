@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
     for service_name in services:
 		print(service_name)
-		ddynrec.add_variable(service_name.replace("/", "___"), "float/double variable", 0.0, 0.0, 1000.0)	
+		ddynrec.add_variable(service_name.replace("/", "___"), "float/double variable", 0.0, 0.0, 40.0)	
 
     # Add variables (name, description, default value, min, max, edit_method)
     # ddynrec.add_variable("decimal", "float/double variable", 0.0, -1.0, 1.0)

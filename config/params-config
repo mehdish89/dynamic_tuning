@@ -1,0 +1,43 @@
+!!python/object/new:dynamic_reconfigure.encoding.Config
+dictitems:
+  groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+    dictitems:
+      groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      id: 0
+      name: Default
+      parameters: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      parent: 0
+      robot___elbow_joint___damping: 50.0
+      robot___elbow_joint___friction: 50.0
+      robot___shoulder_lift_joint___damping: 50.0
+      robot___shoulder_lift_joint___friction: 50.0
+      robot___shoulder_pan_joint___damping: 50.0
+      robot___shoulder_pan_joint___friction: 50.0
+      robot___world_joint___damping: 50.0
+      robot___world_joint___friction: 50.0
+      robot___wrist_1_joint___damping: 50.0
+      robot___wrist_1_joint___friction: 50.0
+      robot___wrist_2_joint___damping: 50.0
+      robot___wrist_2_joint___friction: 50.0
+      robot___wrist_3_joint___damping: 50.0
+      robot___wrist_3_joint___friction: 50.0
+      state: true
+      type: ''
+    state: []
+  robot___elbow_joint___damping: 50.0
+  robot___elbow_joint___friction: 50.0
+  robot___shoulder_lift_joint___damping: 50.0
+  robot___shoulder_lift_joint___friction: 50.0
+  robot___shoulder_pan_joint___damping: 50.0
+  robot___shoulder_pan_joint___friction: 50.0
+  robot___world_joint___damping: 50.0
+  robot___world_joint___friction: 50.0
+  robot___wrist_1_joint___damping: 50.0
+  robot___wrist_1_joint___friction: 50.0
+  robot___wrist_2_joint___damping: 50.0
+  robot___wrist_2_joint___friction: 50.0
+  robot___wrist_3_joint___damping: 50.0
+  robot___wrist_3_joint___friction: 50.0
+state: []

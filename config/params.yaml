@@ -1,20 +1,39 @@
 optimizable_params:
-    - /arm_controller/gains/shoulder_lift_joint/d
-    - /arm_controller/gains/shoulder_lift_joint/i
-    - /arm_controller/gains/shoulder_lift_joint/p
+    # - /arm_controller/gains/elbow_joint/d
+    # - /arm_controller/gains/elbow_joint/i
+    # - /arm_controller/gains/elbow_joint/p
+
+    # - /arm_controller/gains/shoulder_lift_joint/d
+    # - /arm_controller/gains/shoulder_lift_joint/i
+    # - /arm_controller/gains/shoulder_lift_joint/p
     
-    - /arm_controller/gains/shoulder_pan_joint/d
-    - /arm_controller/gains/shoulder_pan_joint/i
-    - /arm_controller/gains/shoulder_pan_joint/p
+    # - /arm_controller/gains/shoulder_pan_joint/d
+    # - /arm_controller/gains/shoulder_pan_joint/i
+    # - /arm_controller/gains/shoulder_pan_joint/p
     
-    - /arm_controller/gains/wrist_1_joint/d
-    - /arm_controller/gains/wrist_1_joint/i
-    - /arm_controller/gains/wrist_1_joint/p
+    # - /arm_controller/gains/wrist_1_joint/d
+    # - /arm_controller/gains/wrist_1_joint/i
+    # - /arm_controller/gains/wrist_1_joint/p
     
-    - /arm_controller/gains/wrist_2_joint/d
-    - /arm_controller/gains/wrist_2_joint/i
-    - /arm_controller/gains/wrist_2_joint/p
+    # - /arm_controller/gains/wrist_2_joint/d
+    # - /arm_controller/gains/wrist_2_joint/i
+    # - /arm_controller/gains/wrist_2_joint/p
     
-    - /arm_controller/gains/wrist_3_joint/d
-    - /arm_controller/gains/wrist_3_joint/i
-    - /arm_controller/gains/wrist_3_joint/p
+    # - /arm_controller/gains/wrist_3_joint/d
+    # - /arm_controller/gains/wrist_3_joint/i
+    # - /arm_controller/gains/wrist_3_joint/p
+
+    - /ddynrec/robot___elbow_joint___damping
+    - /ddynrec/robot___elbow_joint___friction
+    - /ddynrec/robot___shoulder_lift_joint___damping
+    - /ddynrec/robot___shoulder_lift_joint___friction
+    - /ddynrec/robot___shoulder_pan_joint___damping
+    - /ddynrec/robot___shoulder_pan_joint___friction
+    - /ddynrec/robot___world_joint___damping
+    - /ddynrec/robot___world_joint___friction
+    - /ddynrec/robot___wrist_1_joint___damping
+    - /ddynrec/robot___wrist_1_joint___friction
+    - /ddynrec/robot___wrist_2_joint___damping
+    - /ddynrec/robot___wrist_2_joint___friction
+    - /ddynrec/robot___wrist_3_joint___damping
+    - /ddynrec/robot___wrist_3_joint___friction
